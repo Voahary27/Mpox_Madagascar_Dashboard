@@ -1,0 +1,41 @@
+
+# 1. VS Code & Éditeurs
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 2. Environnements Virtuels & Conda
+
+science/
+.conda/
+env/
+venv/
+ENV/
+*.venv/
+env.bak/
+venv.bak/
+
+
+# 3. Cache Python & Fichiers Temporaires
+
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+# 4. Sécurité, Clés & Mots de passe
+
+.env
+.env.local
+.env.*.local
+*.pem
+secrets.toml
+
+
+# 5. Fichiers Système
+
+.DS_Store
+Thumbs.db
