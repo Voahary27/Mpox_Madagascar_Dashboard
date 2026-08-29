@@ -5,13 +5,28 @@ from dotenv import load_dotenv
 import psycopg2 
 import plotly.express as px
 
+# Charger le CSS
+with open("app.css") as style:
+    st.markdown(f"<style>{style.read()}</style>", unsafe_allow_html=True)
+
 load_dotenv()
 
 st.set_page_config(page_title = "Suivie Epidemie Mpox à Madagascar", page_icon = "🦠", layout = "wide")
 
-st.title("Suivie Propagation du virus Mpox à Madagascar")
 
-st.markdown("Analyse épidemiologique basée sur des données fictionnelles pour le suivi de la propagation du virus Mpox à Madagascar. Les données utilisées dans cette application sont générées de manière aléatoire et ne reflètent pas la réalité. Elles sont destinées à des fins éducatives et de démonstration uniquement.")
+
+st.markdown(
+    """<div class="header">
+        <div class ="banner">
+            <div class="banner-content">
+                <h1>Suivi Epidémie Mpox à Madagascar</h1>
+                <p>
+                Analyse épidemiologique basée sur des données fictionnelles pour le suivi de la propagation du virus Mpox à Madagascar. Les données utilisées dans cette application sont générées de manière aléatoire et ne reflètent pas la réalité. Elles sont destinées à des fins éducatives et de démonstration uniquement.
+                </p>
+            </div>
+        </div>
+    </div>
+        """, unsafe_allow_html = True)
 
 
 
@@ -20,11 +35,11 @@ st.markdown("Analyse épidemiologique basée sur des données fictionnelles pour
 @st.cache_resource
 def create_connection():
     conn = psycopg2.connect(
-        host=os.getenv("DB_HOST", "localhost"),
-        database=os.getenv("DB_NAME", "mpox"),
-        user=os.getenv("DB_USER", "mpox2026"),
+        host=os.getenv("DB_HOST"),
+        database=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
         password=os.getenv("DB_PASSWORD"),
-        port=os.getenv("DB_PORT", "5432")
+        port=os.getenv("DB_PORT")
     )
     return conn
 
@@ -104,7 +119,7 @@ st.divider()
 left_col,right_col = st.columns(2)
 
 with left_col:
-    st.subheader("📍 Répartition des Cas par Région")
+    st.subheader(" Répartition des Cas par Région")
     df_region = load_regions()
     fig_region = px.bar(
         df_region,
