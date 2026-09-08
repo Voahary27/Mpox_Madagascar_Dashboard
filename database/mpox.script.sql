@@ -332,5 +332,3 @@ curr_date := curr_date + INTERVAL '1 day';
 END LOOP;
 END LOOP;
 END $$;
-select count (*)
-from epidemiologie;
