@@ -133,7 +133,7 @@ with left_col:
     st.plotly_chart(fig_region, use_container_width=True)
 
 with right_col:
-    st.subheader("👥 Démographie des Patients")
+    st.subheader("Démographie des Patients")
     df_demo = load_demographics()
     fig_demo = px.bar(
         df_demo,

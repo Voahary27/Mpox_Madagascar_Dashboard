@@ -10,6 +10,7 @@
     background-position: center;
     padding : 80px 20px;
     position: relative;
+    margin-bottom: 40px;
 
 }
 
@@ -38,4 +39,26 @@
     font-size: 24px;
     max-width: 600px;
     margin: 0 auto;
+}
+
+[data-testid="stMetric"] {
+    background-color: #faf7f7;
+    color:black;
+    border: 1px solid #e0e0e0;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    
+}
+
+[data-testid="stMetricLabel"] {
+    color: #555555;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+[data-testid="stMetricValue"] {
+    color: #1f2937;
+    font-size: 1.8rem;
+    font-weight: 700;
 }
