@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 import psycopg2 
 import plotly.express as px
 
+
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -15,15 +16,19 @@ def get_conf(key):
     if hasattr(st, "secrets") and key in st.secrets:
         return st.secrets[key]  
     return os.getenv(key)  # Fallback to environment variable
-    
+
+
+st.set_page_config(page_title = "Suivi Epidemie Mpox à Madagascar", page_icon = "🦠", layout = "wide")
 
 # Charger le CSS
-with open("app.css") as style:
-    st.markdown(f"<style>{style.read()}</style>", unsafe_allow_html=True)
+css_path = os.path.join(os.path.dirname(__file__), "app.css")
+if os.path.exists(css_path):
+    with open(css_path) as style:
+        st.markdown(f"<style>{style.read()}</style>", unsafe_allow_html=True)
 
 
 
-st.set_page_config(page_title = "Suivie Epidemie Mpox à Madagascar", page_icon = "🦠", layout = "wide")
+
 
 
 
@@ -64,6 +69,7 @@ except Exception as e:
     st.error(f"Erreur lors de la connexion à la base de données : {e}")
 
 #charger les données de la BD vers un DataFrame pandas
+@st.cache_data(ttl=60)
 def load_kpis(ttl=60):
     query = """
     SELECT 
