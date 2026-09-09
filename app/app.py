@@ -5,11 +5,23 @@ from dotenv import load_dotenv
 import psycopg2 
 import plotly.express as px
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
+
+def get_conf(key):
+    if hasattr(st, "secrets") and key in st.secrets:
+        return st.secrets[key]  
+    return os.getenv(key)  # Fallback to environment variable
+    
+
 # Charger le CSS
 with open("app.css") as style:
     st.markdown(f"<style>{style.read()}</style>", unsafe_allow_html=True)
 
-load_dotenv()
+
 
 st.set_page_config(page_title = "Suivie Epidemie Mpox à Madagascar", page_icon = "🦠", layout = "wide")
 
@@ -35,11 +47,12 @@ st.markdown(
 @st.cache_resource
 def create_connection():
     conn = psycopg2.connect(
-        host=os.getenv("DB_HOST"),
-        database=os.getenv("DB_NAME"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        port=os.getenv("DB_PORT")
+        host=get_conf("DB_HOST"),
+        database=get_conf("DB_NAME"),
+        user=get_conf("DB_USER"),
+        password=get_conf("DB_PASSWORD"),
+        port=get_conf("DB_PORT"),
+        sslmode='require'
     )
     return conn
 
